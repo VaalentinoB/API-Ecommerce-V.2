@@ -1,7 +1,7 @@
 import { Router } from "express";
 const router = Router();
 
-//Array de Mascotas
+
 const pets = [];
 
 

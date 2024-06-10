@@ -24,17 +24,17 @@ app.use("/static", express.static("./src/public"));
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "src/public/img");
-        //Acá le digo donde se van a guardar los archivos. 
+
     },
     filename: (req, file, cb) => {
         cb(null, file.originalname);
-        //Mantengo el nombre original
+
     }
 })
 
 const upload = multer({ storage });
 
 app.post("/upload", upload.array("imagen"), (req, res) => {
-    //Necesito que sea POST porque tengo que cargar un recurso al servidor. 
+
     res.send("Upload!");
 })
