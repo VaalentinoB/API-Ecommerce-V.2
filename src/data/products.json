@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "name": "Leche Entera",
+    "description": "Leche entera pasteurizada 1L",
+    "code": "SUP001",
+    "status": true,
+    "stock": 100,
+    "category": "dairy",
+    "image": "/img/items/leche_entera.png",
+    "price": 1200
+  },
+  {
+    "id": 2,
+    "name": "Pan de Molde",
+    "description": "Pan de molde integral 500g",
+    "code": "SUP002",
+    "status": true,
+    "stock": 50,
+    "category": "bakery",
+    "image": "/img/items/pan_de_molde.png",
+    "price": 1500
+  },
+  {
+    "id": 3,
+    "name": "Huevos de Gallina",
+    "description": "Docena de huevos de gallina",
+    "code": "SUP003",
+    "status": true,
+    "stock": 30,
+    "category": "dairy",
+    "image": "/img/items/huevos_gallina.png",
+    "price": 1800
+  },
+  {
+    "id": 4,
+    "name": "Arroz",
+    "description": "Arroz blanco 1kg",
+    "code": "SUP004",
+    "status": true,
+    "stock": 80,
+    "category": "grains",
+    "image": "/img/items/arroz_blanco.png",
+    "price": 900
+  },
+  {
+    "id": 5,
+    "name": "Aceite de Girasol",
+    "description": "Aceite de girasol 1L",
+    "code": "SUP005",
+    "status": true,
+    "stock": 60,
+    "category": "condiments",
+    "image": "/img/items/aceite_girasol.png",
+    "price": 3500
+  },
+  {
+    "id": 6,
+    "name": "Fideos",
+    "description": "Fideos tipo spaghetti 500g",
+    "code": "SUP006",
+    "status": true,
+    "stock": 70,
+    "category": "grains",
+    "image": "/img/items/fideos_spaghetti.png",
+    "price": 1000
+  },
+  {
+    "id": 7,
+    "name": "Azúcar",
+    "description": "Azúcar blanca 1kg",
+    "code": "SUP007",
+    "status": true,
+    "stock": 40,
+    "category": "condiments",
+    "image": "/img/items/azucar_blanca.png",
+    "price": 1200
+  },
+  {
+    "id": 8,
+    "name": "Sal",
+    "description": "Sal fina 1kg",
+    "code": "SUP008",
+    "status": true,
+    "stock": 90,
+    "category": "condiments",
+    "image": "/img/items/sal_fina.png",
+    "price": 600
+  },
+  {
+    "id": 9,
+    "name": "Harina",
+    "description": "Harina de trigo 1kg",
+    "code": "SUP009",
+    "status": true,
+    "stock": 65,
+    "category": "grains",
+    "image": "/img/items/harina_trigo.png",
+    "price": 1100
+  },
+  {
+    "id": 10,
+    "name": "Jugo de Naranja",
+    "description": "Jugo de naranja 1L",
+    "code": "SUP010",
+    "status": true,
+    "stock": 35,
+    "category": "beverages",
+    "image": "/img/items/jugo_naranja.png",
+    "price": 2500
+  }
+]

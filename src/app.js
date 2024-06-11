@@ -1,14 +1,23 @@
 import express from 'express';
-import productsRouter from './routes/products.js';
-import cartsRouter from './routes/carts.js';
+import cartsRouter from './routes/carts.routes.js';
+import productsRouter from './routes/products.routes.js';
+import displayRoutes from 'express-routemap';
 
 const app = express();
+const puerto = 8080;
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
+
 
 app.use('/api/products', productsRouter);
-app.use('/api/carts', cartsRouter);
+app.use('/api/cart', cartsRouter);
 
-const PORT = 8080;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+
+app.listen(puerto, () => {
+    displayRoutes(app)
+    console.log(`Servidor activo en el puerto ${puerto}`);
 });
+
+
+
