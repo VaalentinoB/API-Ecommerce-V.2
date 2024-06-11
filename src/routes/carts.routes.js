@@ -33,7 +33,7 @@ const initializeData = async () => {
 
 initializeData();
 
-// Método GET para visualizar el carrito de compras
+
 router.get('/api/carts', (req, res) => {
     if (carts.length === 0) {
         res.json({
@@ -48,7 +48,7 @@ router.get('/api/carts', (req, res) => {
     }
 });
 
-// Método GET para visualizar los productos del carrito por ID
+
 router.get('/api/carts/:cid', (req, res) => {
     const cartId = parseInt(req.params.cid);
     const cart = carts.find(c => c.id === cartId);
@@ -58,7 +58,7 @@ router.get('/api/carts/:cid', (req, res) => {
     res.json(cart.products);
 });
 
-// Método GET para mostrar un producto específico dentro de un carrito
+
 router.get('/api/carts/:cid/product/:pid', (req, res) => {
     const cartId = parseInt(req.params.cid);
     const productId = parseInt(req.params.pid);
@@ -76,7 +76,7 @@ router.get('/api/carts/:cid/product/:pid', (req, res) => {
     res.status(200).json(productInCart);
 });
 
-// Método POST para agregar productos al carrito
+
 router.post('/api/carts', async (req, res) => {
     const { products } = req.body;
 
@@ -103,7 +103,7 @@ router.post('/api/carts', async (req, res) => {
     res.status(201).json(newCart);
 });
 
-// Método POST para agregar un producto al carrito por ID de carrito y ID de producto
+
 router.post('/api/carts/:cid/product/:pid', async (req, res) => {
     const cartId = parseInt(req.params.cid);
     const productId = parseInt(req.params.pid);
