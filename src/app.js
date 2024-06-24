@@ -19,5 +19,11 @@ app.listen(puerto, () => {
     console.log(`Servidor activo en el puerto ${puerto}`);
 });
 
-
-
+// consume carpeta public
+app.use(express.json());
+app.use(express.urlencoded({ extends: true }));
+app.use(express.static("./src/public"));
+// handlebars
+app.engine("handlebars", exphbs.engine());
+app.set("view engine", "handlebars");
+app.set("views", "./src/views");
