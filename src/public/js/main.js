@@ -22,7 +22,7 @@ const renderProductos = (data) => {
 
 
         card.innerHTML = `<p> ${item.id} </p>
-                        <p> ${item.title} </p>
+                        <p> ${item.name} </p>
                         <p> ${item.price} </p>
                         <button> Eliminar </button> `
 
