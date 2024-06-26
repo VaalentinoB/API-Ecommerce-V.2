@@ -30,10 +30,21 @@ app.use('/api/cart', cartsRouter);
 
 
 
-app.listen(puerto, () => {
+const http = app.listen(puerto, () => {
     displayRoutes(app)
     console.log(`Servidor activo en el puerto ${puerto}`);
 });
 
+
+import ProductManager from './controllers/productmanager.js';
+
+const productManager = new ProductManager("./src/data/products.json")
+
+const io = new Server(http);
+
+io.on("connection", (socket) => {
+    console.log("Un cliente se conecto!");
+
+});
 
 
