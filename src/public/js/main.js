@@ -27,6 +27,12 @@ const renderProductos = (data) => {
                         <button> Eliminar </button> `
 
         containerProducts.appendChild(card)
+
+        card.querySelector("button").addEventListener("click", () => {
+            eliminarProducto(item.id)
+        })
+
+
     });
 
 
