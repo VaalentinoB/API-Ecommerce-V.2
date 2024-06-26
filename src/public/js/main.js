@@ -29,7 +29,7 @@ const renderProductos = (data) => {
         containerProducts.appendChild(card)
 
         card.querySelector("button").addEventListener("click", () => {
-            eliminarProducto(item.id)
+            deleteProduct(item.id)
         })
 
 
@@ -37,4 +37,7 @@ const renderProductos = (data) => {
 
 
 
+}
+const deleteProduct = (id) => {
+    socket.emit("deleteProduct", id)
 }
