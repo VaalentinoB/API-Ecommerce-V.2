@@ -45,6 +45,8 @@ const io = new Server(http);
 io.on("connection", (socket) => {
     console.log("Un cliente se conecto!");
 
+    socket.emit("products")
+
 });
 
 
