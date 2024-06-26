@@ -47,6 +47,10 @@ io.on("connection", async (socket) => {
 
     socket.emit("products", await productManager.getProducts())
 
+    socket.emit("deleteProduct", async (id) => {
+        await productManager.deleteProduct(id)
+    })
+    io.sockets.emit("products", await productManager.getProducts());
 });
 
 

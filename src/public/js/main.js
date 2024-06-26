@@ -14,7 +14,7 @@ socket.on("products", (data) => {
 
 const renderProductos = (data) => {
     const containerProducts = document.getElementById("containerProducts")
-
+    containerProducts.innerHTML = "";
 
     data.forEach(item => {
         const card = document.createElement("div")
