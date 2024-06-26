@@ -21,16 +21,20 @@ const renderProductos = (data) => {
 
 
 
-        card.innerHTML = `<p> ${item.id} </p>
-                        <p> ${item.name} </p>
+        card.innerHTML = `
+        <div class="product-card">
+        <p> ${item.id} </p>
+                        <p> ${item.title} </p>
                         <p> ${item.price} </p>
-                        <button> Eliminar </button> `
+                        <button> Eliminar </button> 
+                        </div>`
 
         containerProducts.appendChild(card)
 
         card.querySelector("button").addEventListener("click", () => {
-            deleteProduct(item.id)
+            deleteProduct(item.id);
         })
+
 
 
     });
@@ -40,4 +44,26 @@ const renderProductos = (data) => {
 }
 const deleteProduct = (id) => {
     socket.emit("deleteProduct", id)
+
 }
+
+
+document.getElementById("btnEnviar").addEventListener("click", () => {
+    updateProduct();
+})
+
+const updateProduct = () => {
+    const NewProduct = {
+        title: document.getElementById("title").value,
+        description: document.getElementById("description").value === "",
+        price: document.getElementById("price").value === "",
+        img: document.getElementById("img").value === "",
+        code: document.getElementById("code").value === "",
+        stock: document.getElementById("stock").value === "",
+        category: document.getElementById("category").value === "",
+        status: document.getElementById("status").value === "true",
+
+    }
+    socket.emit("updateProduct", NewProduct)
+}
+

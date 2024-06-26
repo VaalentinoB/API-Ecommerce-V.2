@@ -1,18 +1,7 @@
 [
   {
-    "id": 1,
-    "name": "Leche Entera",
-    "description": "Leche entera pasteurizada 1L",
-    "code": "SUP001",
-    "status": true,
-    "stock": 100,
-    "category": "dairy",
-    "image": "/img/items/leche_entera.png",
-    "price": 1200
-  },
-  {
     "id": 2,
-    "name": "Pan de Molde",
+    "title": "Pan de Molde",
     "description": "Pan de molde integral 500g",
     "code": "SUP002",
     "status": true,
@@ -23,7 +12,7 @@
   },
   {
     "id": 3,
-    "name": "Huevos de Gallina",
+    "title": "Huevos de Gallina",
     "description": "Docena de huevos de gallina",
     "code": "SUP003",
     "status": true,
@@ -34,7 +23,7 @@
   },
   {
     "id": 4,
-    "name": "Arroz",
+    "title": "Arroz",
     "description": "Arroz blanco 1kg",
     "code": "SUP004",
     "status": true,
@@ -45,7 +34,7 @@
   },
   {
     "id": 5,
-    "name": "Aceite de Girasol",
+    "title": "Aceite de Girasol",
     "description": "Aceite de girasol 1L",
     "code": "SUP005",
     "status": true,
@@ -56,7 +45,7 @@
   },
   {
     "id": 6,
-    "name": "Fideos",
+    "title": "Fideos",
     "description": "Fideos tipo spaghetti 500g",
     "code": "SUP006",
     "status": true,
@@ -67,7 +56,7 @@
   },
   {
     "id": 7,
-    "name": "Azúcar",
+    "title": "Azúcar",
     "description": "Azúcar blanca 1kg",
     "code": "SUP007",
     "status": true,
@@ -78,7 +67,7 @@
   },
   {
     "id": 8,
-    "name": "Sal",
+    "title": "Sal",
     "description": "Sal fina 1kg",
     "code": "SUP008",
     "status": true,
@@ -89,7 +78,7 @@
   },
   {
     "id": 9,
-    "name": "Harina",
+    "title": "Harina",
     "description": "Harina de trigo 1kg",
     "code": "SUP009",
     "status": true,
@@ -100,7 +89,7 @@
   },
   {
     "id": 10,
-    "name": "Jugo de Naranja",
+    "title": "Jugo de Naranja",
     "description": "Jugo de naranja 1L",
     "code": "SUP010",
     "status": true,
