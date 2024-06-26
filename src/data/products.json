@@ -6,7 +6,7 @@
     "code": "SUP002",
     "status": true,
     "stock": 50,
-    "category": "bakery",
+    "category": "panadería",
     "image": "/img/items/pan_de_molde.png",
     "price": 1500
   },
@@ -17,7 +17,7 @@
     "code": "SUP004",
     "status": true,
     "stock": 80,
-    "category": "grains",
+    "category": "granos",
     "image": "/img/items/arroz_blanco.png",
     "price": 900
   },
@@ -28,7 +28,7 @@
     "code": "SUP005",
     "status": true,
     "stock": 60,
-    "category": "condiments",
+    "category": "condimentos",
     "image": "/img/items/aceite_girasol.png",
     "price": 3500
   },
@@ -39,7 +39,7 @@
     "code": "SUP006",
     "status": true,
     "stock": 70,
-    "category": "grains",
+    "category": "granos",
     "image": "/img/items/fideos_spaghetti.png",
     "price": 1000
   },
@@ -50,7 +50,7 @@
     "code": "SUP007",
     "status": true,
     "stock": 40,
-    "category": "condiments",
+    "category": "condimentos",
     "image": "/img/items/azucar_blanca.png",
     "price": 1200
   },
@@ -61,7 +61,7 @@
     "code": "SUP008",
     "status": true,
     "stock": 90,
-    "category": "condiments",
+    "category": "condimentos",
     "image": "/img/items/sal_fina.png",
     "price": 600
   },
@@ -72,7 +72,7 @@
     "code": "SUP009",
     "status": true,
     "stock": 65,
-    "category": "grains",
+    "category": "granos",
     "image": "/img/items/harina_trigo.png",
     "price": 1100
   },
@@ -83,7 +83,7 @@
     "code": "SUP010",
     "status": true,
     "stock": 35,
-    "category": "beverages",
+    "category": "bebidas",
     "image": "/img/items/jugo_naranja.png",
     "price": 2500
   }

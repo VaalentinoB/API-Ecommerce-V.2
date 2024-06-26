@@ -7,10 +7,20 @@ router.get('/realtimeproducts', async (req, res) => {
 
 
 
+import ProductManager from '../controllers/productmanager.js';
+const productManager = new ProductManager("./src/data/products.json")
 
 
-router.get("/productos", async (req, res) => {
-    res.render("home", {})
+router.get("/", async (req, res) => {
+    try {
+        const product = await productManager.getProducts()
+
+        res.render("home", { product })
+
+
+    } catch (error) {
+        res.status(500).send("Error del servidos :(")
+    }
 })
 
 
