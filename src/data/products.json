@@ -11,17 +11,6 @@
     "price": 1500
   },
   {
-    "id": 3,
-    "title": "Huevos de Gallina",
-    "description": "Docena de huevos de gallina",
-    "code": "SUP003",
-    "status": true,
-    "stock": 30,
-    "category": "dairy",
-    "image": "/img/items/huevos_gallina.png",
-    "price": 1800
-  },
-  {
     "id": 4,
     "title": "Arroz",
     "description": "Arroz blanco 1kg",

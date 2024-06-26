@@ -64,6 +64,6 @@ const updateProduct = () => {
         status: document.getElementById("status").value === "true",
 
     }
-    socket.emit("updateProduct", NewProduct)
+    socket.emit("updateProduct", NewProduct);
 }
 
