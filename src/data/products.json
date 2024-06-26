@@ -86,5 +86,29 @@
     "category": "bebidas",
     "image": "/img/items/jugo_naranja.png",
     "price": 2500
+  },
+  {
+    "title": "Tira de asado",
+    "description": "De vaca xD",
+    "price": "6500",
+    "img": "Sin Imagen",
+    "code": "11",
+    "stock": "10",
+    "category": "Carniceria",
+    "status": true,
+    "thumbnails": [],
+    "id": 11
+  },
+  {
+    "title": "Vacio",
+    "description": "De vaca xD",
+    "price": "8500",
+    "img": "Sin Imagen",
+    "code": "12",
+    "stock": "10",
+    "category": "Carniceria",
+    "status": true,
+    "thumbnails": [],
+    "id": 12
   }
 ]
