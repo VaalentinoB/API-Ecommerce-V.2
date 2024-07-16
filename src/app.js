@@ -6,6 +6,7 @@ import productsRouter from './routes/products.routes.js';
 import displayRoutes from 'express-routemap';
 import viewsRouter from "./routes/views.routes.js"
 import mongoose from 'mongoose';
+import ProductManager from './controllers/productmanager.js';
 const app = express();
 const puerto = 8080;
 
@@ -42,7 +43,6 @@ const http = app.listen(puerto, () => {
 });
 
 
-import ProductManager from './controllers/productmanager.js';
 
 const productManager = new ProductManager("./src/data/products.json")
 
@@ -63,5 +63,7 @@ io.on("connection", async (socket) => {
         io.sockets.emit("products", await productManager.getProducts())
     })
 });
+
+
 
 
