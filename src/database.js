@@ -3,7 +3,7 @@
 import mongoose from "mongoose";
 
 
-mongoose.connect("mongodb+srv://valentinoburioni:vburioni1234@apivb.vym0xct.mongodb.net/Ecommerce",)
+mongoose.connect("mongodb+srv://valentinoburioni:vburioni1234@apivb.vym0xct.mongodb.net/eccomerce",)
     .then(() => {
         console.log('Conectado a la base de datos');
     }).catch((error) => {
