@@ -15,7 +15,7 @@ mongoose.connect("mongodb+srv://valentinoburioni:vburioni1234@apivb.vym0xct.mong
     .catch((error) =>
         res.status(500).send("Error interno", error))
 
-
+// middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static("./src/public"));
