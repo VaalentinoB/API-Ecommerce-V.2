@@ -40,7 +40,7 @@ const productSchema = new mongoose.Schema({
 });
 
 // Crear el modelo de Mongoose basado en el esquema
-const ProductModel = mongoose.model("Product", productSchema);
+const ProductModel = mongoose.model("Products", productSchema);
 
 export default ProductModel;
 
