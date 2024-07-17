@@ -1,4 +1,4 @@
-import CartModel from "./models/cart.model";
+import CartModel from "./data/cart.model";
 
 
 
