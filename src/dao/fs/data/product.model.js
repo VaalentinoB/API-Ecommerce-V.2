@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-const ProductSchema = new mongoose.Schema({
+// Definir el esquema del producto
+const productSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -28,7 +29,6 @@ const ProductSchema = new mongoose.Schema({
     },
     image: {
         type: String
-
     },
     price: {
         type: Number,
@@ -37,9 +37,10 @@ const ProductSchema = new mongoose.Schema({
     thumbnails: {
         type: [String]
     }
-})
+});
 
+// Crear el modelo de Mongoose basado en el esquema
+const ProductModel = mongoose.model("Product", productSchema);
 
-const ProductModel = mongoose.model("products", ProductSchema)
+export default ProductModel;
 
-export default ProductModel

@@ -1,9 +1,11 @@
 //Conexion con Mongoose
 
 import mongoose from "mongoose";
-mongoose.connect("mongodb+srv://valentinoburioni:vburioni1234@apivb.vym0xct.mongodb.net/")
-    .then(() => console.log("Connect to data base"))
-    .catch((error) =>
-        res.status(500).send("Error interno :/", error))
 
 
+mongoose.connect("mongodb+srv://valentinoburioni:vburioni1234@apivb.vym0xct.mongodb.net/Ecommerce",)
+    .then(() => {
+        console.log('Conectado a la base de datos');
+    }).catch((error) => {
+        console.error('Error al conectar a la base de datos:', error);
+    });

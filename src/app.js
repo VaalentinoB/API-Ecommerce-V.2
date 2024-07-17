@@ -6,6 +6,7 @@ import productsRouter from './routes/products.routes.js';
 import displayRoutes from 'express-routemap';
 import viewsRouter from "./routes/views.routes.js"
 import ProductManager from './dao/fs/controllers/productmanager.js';
+
 import "./database.js"
 const app = express();
 const puerto = 8080;

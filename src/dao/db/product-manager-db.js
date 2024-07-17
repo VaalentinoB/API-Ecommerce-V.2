@@ -41,6 +41,7 @@ class ProductManager {
     async getProducts() {
         try {
             const arrayProductos = await ProductModel.find()
+            console.log("Array de productos:", arrayProductos);
             return arrayProductos
         } catch (error) {
             console.log("Error al leer el archivo", error);

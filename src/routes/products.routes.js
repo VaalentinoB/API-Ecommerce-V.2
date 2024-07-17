@@ -8,12 +8,14 @@ const productManager = new ProductManager();
 router.get("/", async (req, res) => {
     try {
         const limite = req.query.limit;
-        const productos = await ProductManager.getProducts();
+        console.log("Limite recibido:", limite);
+        const productos = await productManager.getProducts();
+        console.log("Productos recuperados:", productos);
         if (limite) {
             res.json(productos.slice(0, limite));
-        } else {
-            res.json(productos);
         }
+        res.json(productos);
+
     } catch (error) {
         console.error("Error al obtener productos del JSON", error);
         res.status(500).json({
