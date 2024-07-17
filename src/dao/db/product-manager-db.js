@@ -1,4 +1,4 @@
-import ProductModel from "./data/product.model";
+import ProductModel from "../fs/data/product.model.js";
 
 class ProductManager {
 
