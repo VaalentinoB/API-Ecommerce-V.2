@@ -5,15 +5,11 @@ import { engine } from 'express-handlebars';
 import productsRouter from './routes/products.routes.js';
 import displayRoutes from 'express-routemap';
 import viewsRouter from "./routes/views.routes.js"
-import mongoose from 'mongoose';
-import ProductManager from './controllers/productmanager.js';
+import ProductManager from './dao/fs/controllers/productmanager.js';
 const app = express();
 const puerto = 8080;
 
-mongoose.connect("mongodb+srv://valentinoburioni:vburioni1234@apivb.vym0xct.mongodb.net/")
-    .then(() => console.log("Connect to data base"))
-    .catch((error) =>
-        res.status(500).send("Error interno", error))
+
 
 // middleware
 app.use(express.json());
