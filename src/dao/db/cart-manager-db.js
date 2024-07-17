@@ -1,4 +1,4 @@
-import CartModel from "../fs/data/cart.model";
+import CartModel from "../fs/data/cart.model.js";
 
 
 

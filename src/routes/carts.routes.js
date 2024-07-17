@@ -1,9 +1,8 @@
 import express from "express";
-import CartManager from "../dao/fs/controllers/cartmanager.js";
+import CartManager from "../dao/db/cart-manager-db.js";
 
 const router = express.Router();
-const cartManager = new CartManager("./src/data/cart.json");
-
+const cartManager = new CartManager();
 
 router.post("/", async (req, res) => {
     try {
@@ -16,7 +15,7 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/:cid", async (req, res) => {
-    const cartId = parseInt(req.params.cid);
+    const cartId = req.params.cid;
 
     try {
         const carrito = await cartManager.getCarritoById(cartId);
@@ -27,9 +26,9 @@ router.get("/:cid", async (req, res) => {
     }
 });
 
-//3) Agregar productos a distintos carritos.
+
 router.post("/:cid/product/:pid", async (req, res) => {
-    const carritoId = parseInt(req.params.cid);
+    const carritoId = req.params.cid;
     const productoId = req.params.pid;
     const cantidad = req.body.quantity || 1;
 
