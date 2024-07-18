@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import mongoosePaginate from "mongoose-paginate-v2";
+import paginate from "mongoose-paginate-v2";
 
 // Definir el esquema del producto
 const productSchema = new mongoose.Schema({
@@ -41,7 +41,7 @@ const productSchema = new mongoose.Schema({
 });
 
 //Paginate
-productSchema.plugin(mongoosePaginate)
+productSchema.plugin(paginate)
 // Crear el modelo de Mongoose basado en el esquema
 const ProductModel = mongoose.model("products", productSchema);
 

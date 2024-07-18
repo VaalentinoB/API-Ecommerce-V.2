@@ -1,5 +1,6 @@
 import ProductModel from "../fs/data/product.model.js";
 
+
 class ProductManager {
 
 
@@ -38,13 +39,19 @@ class ProductManager {
             throw error;
         }
     }
-    async getProducts() {
+
+    async getProducts({ page, limit }) {
         try {
-            const arrayProductos = await ProductModel.find()
-            console.log("Array de productos:", arrayProductos);
-            return arrayProductos
+            const options = {
+                page: page || 1,
+                limit: limit || 10,
+                lean: true
+            };
+            const result = await ProductModel.paginate({}, options);
+            console.log("Productos paginados:", result);
+            return result;
         } catch (error) {
-            console.log("Error al leer el archivo", error);
+            console.log("Error al leer los productos:", error);
             throw error;
         }
     }

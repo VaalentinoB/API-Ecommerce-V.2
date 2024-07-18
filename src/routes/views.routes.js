@@ -1,21 +1,25 @@
 import ProductManager from '../dao/db/product-manager-db.js';
 import CartManager from '../dao/db/cart-manager-db.js';
 import { Router } from 'express';
-const router = Router();
-const productManager = new ProductManager()
-const cartManager = new CartManager()
 
+const router = Router();
+const productManager = new ProductManager();
+const cartManager = new CartManager();
 
 router.get("/products", async (req, res) => {
     try {
-        const { page = 1, limit = 2 } = req.query
+        const { page = 1, limit = 2 } = req.query;
         const productos = await productManager.getProducts({
-            page: parent(page),
-            limite: parseInt(limit)
-        })
+            page: parseInt(page),
+            limit: parseInt(limit)
+        });
+
+        if (!productos.docs) {
+            throw new Error('No se encontraron productos');
+        }
 
         const nuevoArray = productos.docs.map(producto => {
-            const { _id, ...rest } = producto.toObject();
+            const { _id, ...rest } = producto;
             return rest;
         });
 
@@ -28,12 +32,12 @@ router.get("/products", async (req, res) => {
             currentPage: productos.page,
             totalPages: productos.totalPages
         });
-
     } catch (error) {
-        console.log("Error interno del servidor ", error);
-        res.status(500).json({ status: "error", error: "error interno" })
+        console.log("Error interno del servidor", error);
+        res.status(500).json({ status: "error", error: "error interno" });
     }
-})
+});
+
 router.get("/carts/:cid", async (req, res) => {
     const cartId = req.params.cid;
 
@@ -47,10 +51,8 @@ router.get("/carts/:cid", async (req, res) => {
 
         const productosEnCarrito = carrito.products.map(item => ({
             product: item.product.toObject(),
-
             quantity: item.quantity
         }));
-
 
         res.render("carts", { productos: productosEnCarrito });
     } catch (error) {
@@ -58,6 +60,5 @@ router.get("/carts/:cid", async (req, res) => {
         res.status(500).json({ error: "Error interno del servidor" });
     }
 });
-
 
 export default router;
