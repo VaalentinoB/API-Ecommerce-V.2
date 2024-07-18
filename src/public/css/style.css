@@ -270,3 +270,52 @@ h1 {
 .checkout-button:hover {
   background-color: #0056b3;
 }
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.cart-list {
+  list-style: none;
+  padding: 0;
+}
+
+.cart-item {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+}
+
+.cart-item-empty {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+}
+
+.checkout-button {
+  display: block;
+  width: 200px;
+  margin: 20px auto;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background-color: #28a745;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.checkout-button:hover {
+  background-color: #218838;
+}
