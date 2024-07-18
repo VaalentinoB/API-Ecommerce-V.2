@@ -21,7 +21,7 @@ class CartManager {
             if (!carrito) {
                 throw new Error(`No existe un carrito con el ID ${cartId}`);
             }
-            return carrito;
+            return await CartModel.findById(cartId).populate('products.product');
         } catch (error) {
             console.error("Error al obtener el carrito por ID", error);
             throw error;

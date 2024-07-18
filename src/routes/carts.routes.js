@@ -61,7 +61,7 @@ router.delete("/:cid/products/:pid", async (req, res) => {
     }
 });
 
-//  Actualizar carrito
+
 router.put("/:cid", async (req, res) => {
     const productos = req.body.products;
     const cartId = req.params.cid;
