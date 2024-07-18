@@ -1,27 +1,63 @@
+import ProductManager from '../dao/db/product-manager-db.js';
+import CartManager from '../dao/db/cart-manager-db.js';
 import { Router } from 'express';
 const router = Router();
-
-router.get('/realtimeproducts', async (req, res) => {
-    res.render('realtimeproducts');
-});
+const productManager = new ProductManager()
+const cartManager = new CartManager()
 
 
-
-import ProductManager from '../dao/fs/controllers/productmanager.js';
-const productManager = new ProductManager("./src/data/products.json")
-
-
-router.get("/", async (req, res) => {
+router.get("/products", async (req, res) => {
     try {
-        const product = await productManager.getProducts()
+        const { page = 1, limit = 2 } = req.query
+        const productos = await productManager.getProducts({
+            page: parent(page),
+            limite: parseInt(limit)
+        })
 
-        res.render("home", { product })
+        const nuevoArray = productos.docs.map(producto => {
+            const { _id, ...rest } = producto.toObject();
+            return rest;
+        });
 
+        res.render("products", {
+            productos: nuevoArray,
+            hasPrevPage: productos.hasPrevPage,
+            hasNextPage: productos.hasNextPage,
+            prevPage: productos.prevPage,
+            nextPage: productos.nextPage,
+            currentPage: productos.page,
+            totalPages: productos.totalPages
+        });
 
     } catch (error) {
-        res.status(500).send("Error del servidos :(")
+        console.log("Error interno del servidor ", error);
+        res.status(500).json({ status: "error", error: "error interno" })
     }
 })
+router.get("/carts/:cid", async (req, res) => {
+    const cartId = req.params.cid;
+
+    try {
+        const carrito = await cartManager.getCarritoById(cartId);
+
+        if (!carrito) {
+            console.log("No existe el carrito con el id ingresado");
+            return res.status(404).json({ error: "Carrito no encontrado, ya lo encontraras!" });
+        }
+
+        const productosEnCarrito = carrito.products.map(item => ({
+            product: item.product.toObject(),
+
+            quantity: item.quantity
+        }));
+
+
+        res.render("carts", { productos: productosEnCarrito });
+    } catch (error) {
+        console.error("Error al obtener el carrito", error);
+        res.status(500).json({ error: "Error interno del servidor" });
+    }
+});
 
 
 export default router;
