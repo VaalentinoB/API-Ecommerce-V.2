@@ -26,12 +26,8 @@ router.get("/products", async (req, res) => {
             limit: parseInt(limit)
         });
 
-        if (!productos.docs) {
-            throw new Error('No se encontraron productos');
-        }
-
         const nuevoArray = productos.docs.map(producto => {
-            const { _id, ...rest } = producto;
+            const { _id, ...rest } = producto.toObject();
             return rest;
         });
 
@@ -44,9 +40,13 @@ router.get("/products", async (req, res) => {
             currentPage: productos.page,
             totalPages: productos.totalPages
         });
+
     } catch (error) {
-        console.log("Error interno del servidor", error);
-        res.status(500).json({ status: "error", error: "error interno" });
+        console.error("Error al obtener productos", error);
+        res.status(500).json({
+            status: 'error',
+            error: "Error interno del servidor"
+        });
     }
 });
 
