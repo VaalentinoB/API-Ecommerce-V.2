@@ -68,12 +68,11 @@ router.get("/carts/:cid", async (req, res) => {
         }
 
 
-        const productosEnCarrito = carrito.products
-            .filter(item => item.product)
-            .map(item => ({
-                product: item.product.toObject(),
-                quantity: item.quantity
-            }));
+        const productosEnCarrito = carrito.products.map(item => ({
+            product: item.product.toObject(),
+
+            quantity: item.quantity
+        }));
         console.log(productosEnCarrito);
 
         res.render("carts", { productos: productosEnCarrito });
