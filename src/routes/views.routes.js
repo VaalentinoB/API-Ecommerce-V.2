@@ -6,6 +6,18 @@ const router = Router();
 const productManager = new ProductManager();
 const cartManager = new CartManager();
 
+router.get("/realtimeproducts", (req, res) => {
+    try {
+        res.render("realtimeproducts");
+    } catch (error) {
+        console.error("Error al mostrar los productos", error);
+        res.status(500).json({
+            error: "Error interno del servidor"
+        });
+    }
+});
+
+
 router.get("/products", async (req, res) => {
     try {
         const { page = 1, limit = 2 } = req.query;
