@@ -40,18 +40,14 @@ class ProductManager {
         }
     }
 
-    async getProducts({ page, limit }) {
+    async getProducts({ filter = {}, options = {} }) {
         try {
-            const options = {
-                page: page || 1,
-                limit: limit || 10,
-                lean: true
-            };
-            const result = await ProductModel.paginate({}, options);
-            console.log("Productos paginados:", result);
-            return result;
+
+            const result = await ProductModel.paginate(filter, options)
+            result.docs = result.docs.map(doc => doc.toObject())
+            return result
         } catch (error) {
-            console.log("Error al leer los productos:", error);
+            console.log("Error al obtener productos", error);
             throw error;
         }
     }
