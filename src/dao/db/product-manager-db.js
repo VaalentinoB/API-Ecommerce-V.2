@@ -50,20 +50,16 @@ class ProductManager {
             throw error;
         }
     }
-
     async getProductById(id) {
         try {
-
-            if (!mongoose.Types.ObjectId.isValid(id)) {
+            // Validar si el ID es un ObjectId válido
+            if (!mongoose.isValidObjectId(id)) {
                 console.log("ID no válido");
                 return null;
             }
 
-            // Convertir el ID a ObjectId
-            const objectId = mongoose.Types.ObjectId(id);
-
             // Buscar el producto por ID
-            const buscado = await ProductModel.findById(objectId);
+            const buscado = await ProductModel.findById(id);
 
             if (!buscado) {
                 console.log("Producto no encontrado");
@@ -77,14 +73,19 @@ class ProductManager {
             throw error;
         }
     }
-
     async updateProduct(id, productoActualizado) {
         try {
+            // Validar si el ID es un ObjectId válido
+            if (!mongoose.isValidObjectId(id)) {
+                console.log("ID no válido");
+                return null;
+            }
 
-            const producto = await ProductModel.findByIdAndUpdate(id, productoActualizado)
+            const producto = await ProductModel.findByIdAndUpdate(id, productoActualizado, { new: true });
 
             if (!producto) {
                 console.log("No encontre el producto :/");
+                return null;
             } else {
                 console.log("PRODUCTO ACTUALIZADO!!");
                 return producto;
@@ -97,14 +98,19 @@ class ProductManager {
 
     async deleteProduct(id) {
         try {
+            // Validar si el ID es un ObjectId válido
+            if (!mongoose.isValidObjectId(id)) {
+                console.log("ID no válido");
+                return null;
+            }
 
             const borrado = await ProductModel.findByIdAndDelete(id);
             if (!borrado) {
                 console.log("No lo encontre :/");
                 return null;
             } else {
-                console.log("Producto eliminado")
-                return borrado;;
+                console.log("Producto eliminado");
+                return borrado;
             }
 
         } catch (error) {

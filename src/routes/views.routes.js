@@ -22,15 +22,17 @@ router.get("/realtimeproducts", (req, res) => {
 router.get("/products", async (req, res) => {
     try {
         const { page = 1, limit = 2 } = req.query;
-        const productos = await productManager.getProducts({
+        const productos = await productManager.getProducts({}, {
             page: parseInt(page),
             limit: parseInt(limit)
         });
 
         const nuevoArray = productos.docs.map(producto => {
-            const { _id, ...rest } = producto.toObject();
+
+            const { _id, ...rest } = producto;
             return rest;
         });
+
 
         res.render("products", {
             productos: nuevoArray,
@@ -50,7 +52,6 @@ router.get("/products", async (req, res) => {
         });
     }
 });
-
 router.get("/carts/:cid", async (req, res) => {
     const cartID = req.params.cid;
 
@@ -61,7 +62,7 @@ router.get("/carts/:cid", async (req, res) => {
 
     try {
         const carrito = await cartManager.getCarritoById(cartID);
-
+        console.log(carrito);
         if (!carrito) {
             console.log("No existe el carrito que intentas buscar");
             return res.status(404).json({ error: "Carrito no encontrado :/" });

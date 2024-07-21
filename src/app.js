@@ -28,7 +28,7 @@ app.set("views", "./src/views");
 
 
 app.use('/api/products', productsRouter);
-app.use('/api/cart', cartsRouter);
+app.use('/api/carts', cartsRouter);
 
 
 
