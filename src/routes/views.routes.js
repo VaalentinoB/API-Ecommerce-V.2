@@ -1,6 +1,7 @@
 import ProductManager from '../dao/db/product-manager-db.js';
 import CartManager from '../dao/db/cart-manager-db.js';
 import { Router } from 'express';
+import mongoose from 'mongoose';
 
 const router = Router();
 const productManager = new ProductManager();
@@ -53,6 +54,11 @@ router.get("/products", async (req, res) => {
 router.get("/carts/:cid", async (req, res) => {
     const cartID = req.params.cid;
 
+    // Validar si el ID es un ObjectId válido
+    if (!mongoose.Types.ObjectId.isValid(cartID)) {
+        return res.status(400).json({ error: "ID de carrito no válido" });
+    }
+
     try {
         const carrito = await cartManager.getCarritoById(cartID);
 
@@ -72,5 +78,6 @@ router.get("/carts/:cid", async (req, res) => {
         res.status(500).json({ error: "Error interno del servidor" });
     }
 });
+
 
 export default router;

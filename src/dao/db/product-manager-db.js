@@ -1,5 +1,5 @@
 import ProductModel from "../fs/data/product.model.js";
-
+import mongoose from "mongoose";
 
 class ProductManager {
 
@@ -53,7 +53,17 @@ class ProductManager {
 
     async getProductById(id) {
         try {
-            const buscado = await ProductModel.findById(id)
+
+            if (!mongoose.Types.ObjectId.isValid(id)) {
+                console.log("ID no válido");
+                return null;
+            }
+
+            // Convertir el ID a ObjectId
+            const objectId = mongoose.Types.ObjectId(id);
+
+            // Buscar el producto por ID
+            const buscado = await ProductModel.findById(objectId);
 
             if (!buscado) {
                 console.log("Producto no encontrado");

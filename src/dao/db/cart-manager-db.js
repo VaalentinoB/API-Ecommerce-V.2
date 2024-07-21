@@ -1,5 +1,6 @@
 import CartModel from "../fs/data/cart.model.js";
 import ProductModel from "../fs/data/product.model.js";
+import mongoose from "mongoose";
 
 class CartManager {
 
@@ -16,12 +17,19 @@ class CartManager {
 
     async getCarritoById(cartId) {
         try {
+            // Validar si el ID es un ObjectId válido
+            if (!mongoose.Types.ObjectId.isValid(cartId)) {
+                throw new Error(`ID no válido: ${cartId}`);
+            }
+
             // Encontrar el carrito por ID y hacer populate de los productos
             const carrito = await CartModel.findById(cartId).populate('products.product');
+
             if (!carrito) {
                 throw new Error(`No existe un carrito con el ID ${cartId}`);
             }
-            return await CartModel.findById(cartId).populate('products.product');
+
+            return carrito;
         } catch (error) {
             console.error("Error al obtener el carrito por ID", error);
             throw error;
