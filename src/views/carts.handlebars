@@ -1,11 +1,12 @@
+<link rel="stylesheet" href="/css/styles.css" />
 <div class="container">
   <h1>Mi Carrito</h1>
 
   <ul class="cart-list">
-    {{#each products}}
+    {{#each productos}}
       <li class="cart-item">
-        <p><strong>Producto:</strong> {{this.products.title}}</p>
-        <p><strong>Cantidad:</strong> {{this.quantity}}</p>
+        <p><strong>Producto:</strong> {{product.title}}</p>
+        <p><strong>Cantidad:</strong> {{quantity}}</p>
       </li>
     {{else}}
       <li class="cart-item cart-item-empty">El carrito se encuentra vacío.</li>
@@ -14,4 +15,4 @@
 
   <a href="/checkout" class="checkout-button">Finalizar Compra</a>
 </div>
-<script src="../public/js/index.js"></script>
+<script src="js/index.js"></script>
