@@ -52,7 +52,7 @@ class CartManager {
         try {
             const carrito = await this.getCarritoById(cartId);
 
-            // Filtrar productos para eliminar el especificado
+
             carrito.products = carrito.products.filter(item => item.product._id.toString() !== productId);
             carrito.markModified("products");
             await carrito.save();

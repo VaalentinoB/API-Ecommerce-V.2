@@ -51,29 +51,20 @@ router.get("/products", async (req, res) => {
 });
 
 router.get("/carts/:cid", async (req, res) => {
-    const cartId = req.params.cid;
+    const cartID = req.params.cid;
 
     try {
-        const carrito = await cartManager.getCarritoById(cartId);
+        const carrito = await cartManager.getCarritoById(cartID);
 
         if (!carrito) {
-            console.log("No existe el carrito con el id ingresado");
-            return res.status(404).json({ error: "Carrito no encontrado, ya lo encontraras!" });
+            console.log("No existe el carrito que intentas buscar");
+            return res.status(404).json({ error: "Carrito no encontrado :/" });
         }
-
-
-        if (!carrito.products) {
-            console.log("El carrito no contiene productos");
-            return res.status(404).json({ error: "No hay productos en el carrito" });
-        }
-
 
         const productosEnCarrito = carrito.products.map(item => ({
             product: item.product.toObject(),
-
             quantity: item.quantity
         }));
-        console.log(productosEnCarrito);
 
         res.render("carts", { productos: productosEnCarrito });
     } catch (error) {
