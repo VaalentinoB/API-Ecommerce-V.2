@@ -29,6 +29,7 @@ app.set("views", "./src/views");
 
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
+//app.use("/api/sessions", sessionsRouter)
 
 
 
