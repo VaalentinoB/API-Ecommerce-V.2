@@ -6,8 +6,11 @@ import productsRouter from './routes/products.routes.js';
 import displayRoutes from 'express-routemap';
 import viewsRouter from "./routes/views.routes.js"
 import ProductManager from './dao/fs/controllers/productmanager.js';
-
+import sessionsRouter from './routes/sessions.routes.js';
+import cookieParser from 'cookie-parser';
+import passport from 'passport';
 import "./database.js"
+import initializePassport from './config/passport.config.js';
 const app = express();
 const puerto = 8080;
 
@@ -18,7 +21,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static("./src/public"));
 app.use("/", viewsRouter)
-
+app.use(cookieParser())
+app.use(passport.initialize());
+initializePassport()
 
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
@@ -29,7 +34,7 @@ app.set("views", "./src/views");
 
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
-//app.use("/api/sessions", sessionsRouter)
+app.use("/api/sessions", sessionsRouter)
 
 
 
