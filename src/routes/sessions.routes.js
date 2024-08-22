@@ -120,7 +120,7 @@ router.get("/admin", passport.authenticate("jwt", { session: false }), (req, res
     }
 })
 
-
+//Prometo para la entrega final meter mas css xd
 
 
 export default router
