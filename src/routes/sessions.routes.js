@@ -4,7 +4,7 @@ import UsuarioModel from "../models/usuario.model.js";
 import { createHash, isValidPassword } from "../util/util.js";
 import passport from "passport";
 import jwt from "jsonwebtoken";
-
+import cookieParser from "cookie-parser";
 
 
 
@@ -49,6 +49,41 @@ router.post("/register", async (req, res) => {
     }
 })
 
+
+router.post("/login", async (req, res) => {
+    const { email, password } = req.body
+
+    try {
+        const usuarioEnontrado = await UsuarioModel.findOne({ email })
+
+        if (!usuarioEnontrado) {
+            return res.status(401).send("Usuario incorrecto")
+
+
+        }
+
+
+        if (!isValidPassword(password, usuarioEnontrado)) {
+            return res.status(401).send("Contraseña ingresada es incorrecta!")
+        }
+        const token = jwt.sign({ usuario: usuarioEnontrado.email, rol: usuarioEnontrado.role }, "passticket", { expiresIn: "2h" });
+
+
+        res.cookie("passticketCookieToken", token, {
+            maxAge: 7200000,
+            httpOnly: true
+        })
+
+        res.redirect("/api/sessions/home");
+
+    } catch (error) {
+        console.log(error)
+        res.send("Error")
+    }
+
+})
+
+
 router.get("/home", passport.authenticate("jwt", { session: false }), (req, res) => {
     console.log(req.user);
 
@@ -61,6 +96,31 @@ router.get("/home", passport.authenticate("jwt", { session: false }), (req, res)
         res.status(401).send("No autorizado");
     }
 })
+
+
+
+router.post("/logout", (req, res) => {
+    res.clearCookie("passticketCookieToken")
+
+    res.redirect("/login")
+})
+
+
+router.get("/admin", passport.authenticate("jwt", { session: false }), (req, res) => {
+
+    if (req.user.role == "admin") {
+
+
+        res.render("admin")
+
+
+    } else {
+
+        res.status(403).send("No autorizado");
+    }
+})
+
+
 
 
 export default router
