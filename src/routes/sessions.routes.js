@@ -83,7 +83,7 @@ router.post("/login", async (req, res) => {
 
 })
 
-
+/// Mi ruta current la denomine home 
 router.get("/home", passport.authenticate("jwt", { session: false }), (req, res) => {
     console.log(req.user);
 
