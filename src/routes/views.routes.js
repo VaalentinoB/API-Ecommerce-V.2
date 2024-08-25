@@ -81,7 +81,7 @@ router.get("/carts/:cid", async (req, res) => {
 });
 
 
-router.get("/login", (req, res) => {
+router.get("/*", (req, res) => {
     res.render("login");
 })
 
