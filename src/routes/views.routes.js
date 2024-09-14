@@ -13,8 +13,6 @@ const cartManager = new CartManager();
 
 
 router.get("/products", passport.authenticate("jwt", { session: false }), soloUser ,async (req, res) => {
-    console.log(req.user);
-    
     try {
         const { page = 1, limit = 2 } = req.query;
         const productos = await productManager.getProducts({

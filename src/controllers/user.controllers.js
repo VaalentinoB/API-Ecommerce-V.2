@@ -59,14 +59,20 @@
         
     async current(req, res) {
         if (req.user) {
-            console.log("Usuario autenticado:", req.user); 
-            const userDTO = new UserDTO(req.user);
+            const user = req.user;
+            
+            const userDTO = new UserDTO(user);
             res.render("current", { user: userDTO });
         } else {
-            res.status(403).send("No autorizado");
+            res.send("No autorizado");
         }
     }
     
+        logout (req,res) {
+            res.clearCookie("passticketCookieToken")
+            res.redirect("/login")
+        }
+    }
 
 
     export default new UserController();
