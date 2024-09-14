@@ -1,15 +1,9 @@
-<header>
-
-  <h1>Bienvenido, {{user.first_name}} !</h1>
-
-</header>
-
 <div class="container">
   <h1>Productos</h1>
   {{#each productos}}
     <div class="product">
       <h2>{{title}}</h2>
-      <p>{{id}}</p>
+      <p>ID: {{_id}}</p> 
       <p>{{description}}</p>
       <p>Price: ${{price}}</p>
       <p>Category: {{category}}</p>
@@ -26,5 +20,5 @@
     {{/if}}
   </div>
 
-  <p class="page-info">Pagina {{currentPage}} de {{totalPages}}</p>
+  <p class="page-info">Página {{currentPage}} de {{totalPages}}</p>
 </div>

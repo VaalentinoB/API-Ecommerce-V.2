@@ -1,6 +1,6 @@
 import userRepository from "../repositories/user.repository.js";
 import bcrypt from "bcrypt";
-
+import { createHash, isValidPassword } from "../util/util.js";
 
 
 class UserService { 
@@ -19,18 +19,24 @@ class UserService {
 
     }
 
-
-async loginUser(email,password) {
-
-    const user = await userRepository.getUserByEmail(email);
-    const isValidPassword = bcrypt.compareSync(password, user.password);
-
-    if (!user || !isValidPassword) {
-        throw new Error("Credenciales incorrectas");
+//Utilizar isvalidpassword de utils
+    async loginUser(email, password) {
+        const user = await userRepository.getUserByEmail(email);
+        
+        if (!user) {
+            throw new Error("Credenciales incorrectas");
+        }
+    
+        const isValidPassword = bcrypt.compareSync(password, user.password);
+        
+        if (!isValidPassword) {
+            throw new Error("Credenciales incorrectas");
+        }
+        
+        return user;
     }
     
-    return user;
-}  
+    
 
 
 

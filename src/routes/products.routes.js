@@ -4,25 +4,39 @@ const router = express.Router();
 import ProductManager from "../dao/db/product-manager-db.js";
 const productManager = new ProductManager();
 
-
 router.get("/", async (req, res) => {
     try {
-        const limite = req.query.limit;
-        console.log("Limite recibido:", limite);
-        const productos = await productManager.getProducts();
-        console.log("Productos recuperados:", productos);
-        if (limite) {
-            res.json(productos.slice(0, limite));
-        }
-        res.json(productos);
+        const { limit = 10, page = 1, sort, query } = req.query;
+
+        const productos = await productManager.getProducts({
+            limit: parseInt(limit),
+            page: parseInt(page),
+            sort,
+            query,
+        });
+
+        res.json({
+            status: 'success',
+            payload: productos,
+            totalPages: productos.totalPages,
+            prevPage: productos.prevPage,
+            nextPage: productos.nextPage,
+            page: productos.page,
+            hasPrevPage: productos.hasPrevPage,
+            hasNextPage: productos.hasNextPage,
+            prevLink: productos.hasPrevPage ? `/api/products?limit=${limit}&page=${productos.prevPage}&sort=${sort}&query=${query}` : null,
+            nextLink: productos.hasNextPage ? `/api/products?limit=${limit}&page=${productos.nextPage}&sort=${sort}&query=${query}` : null,
+        });
 
     } catch (error) {
-        console.error("Error al obtener productos del JSON", error);
+        console.error("Error al obtener productos", error);
         res.status(500).json({
-            error: "Error del servidor :("
+            status: 'error',
+            error: "Error interno del servidor"
         });
     }
 });
+
 
 
 router.get("/:pid", async (req, res) => {

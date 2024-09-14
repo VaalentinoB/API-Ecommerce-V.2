@@ -1,6 +1,8 @@
     import userService from "../service/user.service.js";
     import jwt from "jsonwebtoken"
-    class UserController {
+    import passport from "passport";
+    import UserDTO from "../dto/user.dto.js";
+        class UserController {
 
         async register(req, res) {
             const {first_name, last_name, email, age, password} = req.body;
@@ -46,26 +48,25 @@
                 maxAge: 7200000,
                 httpOnly: true
             })
-
+            
             res.redirect("/api/sessions/home");
         }
         catch(error) {
             res.status(500).send("Error interno del servidor 500 ;/")
+            
         }
     } 
         
-        async current (req, res) {
-            if(req.user) {
-                res.render("home", { user: req.user });
-            } else {
-                res.send("No autorizado");
-            }
-        }
-        logout (req,res) {
-            res.clearCookie("passticketCookieToken")
-            res.redirect("/login")
+    async current(req, res) {
+        if (req.user) {
+            console.log("Usuario autenticado:", req.user); 
+            const userDTO = new UserDTO(req.user);
+            res.render("current", { user: userDTO });
+        } else {
+            res.status(403).send("No autorizado");
         }
     }
+    
 
 
     export default new UserController();

@@ -6,7 +6,8 @@ class UserDao {
 
     async findById(id) {
 
-        return await UsuarioModel.findbtId(id)
+        return await UsuarioModel.findById(id)
+
 
     }
 

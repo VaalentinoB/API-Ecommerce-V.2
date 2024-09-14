@@ -5,7 +5,7 @@ import { engine } from 'express-handlebars';
 import productsRouter from './routes/products.routes.js';
 import displayRoutes from 'express-routemap';
 import viewsRouter from "./routes/views.routes.js"
-import ProductManager from './dao/fs/controllers/productmanager.js';
+import ProductManager from './dao/db/product-manager-db.js';
 import sessionsRouter from './routes/sessions.routes.js';
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
@@ -48,26 +48,28 @@ const http = app.listen(puerto, () => {
 
 
 
-const productManager = new ProductManager("./src/data/products.json")
 
-const io = new Server(http);
+const io = new Server(http); 
+
+const productManager = new ProductManager();
 
 io.on("connection", async (socket) => {
-    console.log("Un cliente se conecto!");
+    console.log("Un Cliente se ha conectado");
 
-    socket.emit("products", await productManager.getProducts())
+    // Enviar productos al conectar
+    const productos = await productManager.getProducts();
+    socket.emit("productos", productos);
 
-    socket.on("deleteProduct", async (id) => {
-        await productManager.deleteProduct(id)
-        io.sockets.emit("products", await productManager.getProducts())
-    })
+    socket.on("eliminarProducto", async (id) => {
+        await productManager.deleteProduct(id);
+        const productosActualizados = await productManager.getProducts();
+        io.sockets.emit("productos", productosActualizados);
+    });
 
-    socket.on("updateProduct", async (product) => {
-        await productManager.addProduct(product)
-        io.sockets.emit("products", await productManager.getProducts())
-    })
+    socket.on("agregarProducto", async (producto) => {
+        await productManager.addProduct(producto);
+        const productosActualizados = await productManager.getProducts();
+        io.sockets.emit("productos", productosActualizados);
+    });
 });
-
-
-
 

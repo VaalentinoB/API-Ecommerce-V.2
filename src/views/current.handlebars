@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="welcome-card">
+            <h2>Bienvenido, {{user.email}}!</h2>
+          
+            <p><strong>Rol:</strong> {{user.role}}</p>
+            
+            <form action="/products" method="get">
+                <button type="submit" class="btn">Ir a Productos</button>
+            </form>
+
+            <form class="formulario-logout" action="/api/sessions/logout" method="POST">
+                <button type="submit" class="btn">Logout</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
