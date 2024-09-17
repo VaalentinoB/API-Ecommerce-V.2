@@ -18,10 +18,10 @@ const initializePassport = () => {
         secretOrKey: 'passticket'
     }, async (jwt_payload, done) => {
         try {
-            console.log("Payload recibido:", jwt_payload);  // Verifica que el JWT se decodificó correctamente
+            
             const user = await UsuarioModel.findOne({ email: jwt_payload.email });
             if (user) {
-                console.log("Usuario encontrado:", user);  // Verifica si se encuentra el usuario en la base de datos
+                
                 return done(null, user);
             } else {
                 console.log("Usuario no encontrado");
