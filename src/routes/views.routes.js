@@ -1,16 +1,14 @@
-import ProductManager from '../dao/db/product-manager-db.js';
-import CartManager from '../dao/db/cart-manager-db.js';
-import { Router } from 'express';
-import mongoose from 'mongoose';
-import { soloAdmin,soloUser } from '../middlewares/auth.js';
-import passport from 'passport';
-
-const router = Router();
+import express from "express";
+const router = express.Router();
+import ProductManager from "../dao/db/product-manager-db.js";
+import CartManager from "../dao/db/cart-manager-db.js";
+import {soloUser,soloAdmin} from "../routes/auth/auth.js"
 const productManager = new ProductManager();
 const cartManager = new CartManager();
 
+//Me traigo los Middleware de auth: 
 
-
+import passport from "passport";
 
 router.get("/products", passport.authenticate("jwt", { session: false }), soloUser ,async (req, res) => {
     try {
@@ -44,53 +42,43 @@ router.get("/products", passport.authenticate("jwt", { session: false }), soloUs
      }
 });
 
+
+
 router.get("/carts/:cid", async (req, res) => {
-    const cartID = req.params.cid;
+   const cartId = req.params.cid;
 
-    // Validar si el ID es un ObjectId válido
-    if (!mongoose.Types.ObjectId.isValid(cartID)) {
-        return res.status(400).json({ error: "ID de carrito no válido" });
-    }
+   try {
+      const carrito = await cartManager.getCarritoById(cartId);
 
-    try {
-        const carrito = await cartManager.getCarritoById(cartID);
-        console.log(carrito);
-        if (!carrito) {
-            console.log("No existe el carrito que intentas buscar");
-            return res.status(404).json({ error: "Carrito no encontrado :/" });
-        }
+      if (!carrito) {
+         console.log("No existe ese carrito con el id");
+         return res.status(404).json({ error: "Carrito no encontrado" });
+      }
 
-        const productosEnCarrito = carrito.products.map(item => ({
-            product: item.product.toObject(),
-            quantity: item.quantity
-        }));
+      const productosEnCarrito = carrito.products.map(item => ({
+         product: item.product.toObject(),
+         //Lo convertimos a objeto para pasar las restricciones de Exp Handlebars. 
+         quantity: item.quantity
+      }));
 
-        res.render("carts", { productos: productosEnCarrito });
-    } catch (error) {
-        console.error("Error al obtener el carrito", error);
-        res.status(500).json({ error: "Error interno del servidor" });
-    }
+
+      res.render("carts", { productos: productosEnCarrito });
+   } catch (error) {
+      console.error("Error al obtener el carrito", error);
+      res.status(500).json({ error: "Error interno del servidor" });
+   }
 });
 
+router.get("/login", (req, res) => {
+    res.render("login"); 
+})
 
-    router.get("/login", (req, res) => {
-        res.render("login");
-    })
+router.get("/register", (req, res) => {
+    res.render("register"); 
+})
 
-    router.get("/register", (req, res) => {
-        res.render("register")
-    })
-
-    router.get("/realtimeproducts",passport.authenticate("jwt", { session: false }) ,soloAdmin ,(req, res) => {
-        try {
-            res.render("realtimeproducts");
-        } catch (error) {
-            console.error("Error al mostrar los productos", error);
-            res.status(500).json({
-                error: "Error interno del servidor"
-            });
-        }
-    });
-
+router.get("/realtimeproducts",(req, res) => {
+   res.render("realtimeproducts"); 
+})
 
 export default router;

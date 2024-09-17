@@ -17,13 +17,14 @@ const puerto = 8080;
 
 
 // middleware
+app.use(cookieParser())
+app.use(passport.initialize());
+initializePassport()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static("./src/public"));
 app.use("/", viewsRouter)
-app.use(cookieParser())
-app.use(passport.initialize());
-initializePassport()
+
 
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
