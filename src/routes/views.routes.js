@@ -3,12 +3,10 @@ const router = express.Router();
 import ProductManager from "../dao/db/product-manager-db.js";
 import CartManager from "../dao/db/cart-manager-db.js";
 import {soloUser,soloAdmin} from "../routes/auth/auth.js"
+import passport from "passport";
 const productManager = new ProductManager();
 const cartManager = new CartManager();
 
-//Me traigo los Middleware de auth: 
-
-import passport from "passport";
 
 router.get("/products", passport.authenticate("jwt", { session: false }), soloUser ,async (req, res) => {
     try {
@@ -77,8 +75,15 @@ router.get("/register", (req, res) => {
     res.render("register"); 
 })
 
-router.get("/realtimeproducts",(req, res) => {
-   res.render("realtimeproducts"); 
-})
+router.get("/realtimeproducts",passport.authenticate("jwt", { session: false }) ,soloAdmin ,(req, res) => {
+    try {
+        res.render("realtimeproducts");
+    } catch (error) {
+        console.error("Error al mostrar los productos", error);
+        res.status(500).json({
+            error: "Error interno del servidor"
+        });
+    }
+});
 
 export default router;
