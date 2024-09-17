@@ -1,76 +1,68 @@
 import express from 'express';
-import cartsRouter from './routes/carts.routes.js';
 import { Server } from 'socket.io';
 import { engine } from 'express-handlebars';
-import productsRouter from './routes/products.routes.js';
-import displayRoutes from 'express-routemap';
-import viewsRouter from "./routes/views.routes.js"
-import ProductManager from './dao/db/product-manager-db.js';
-import sessionsRouter from './routes/sessions.routes.js';
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
-import "./database.js"
+import displayRoutes from 'express-routemap';
+import productsRouter from './routes/products.routes.js';
+import cartsRouter from './routes/carts.routes.js';
+import viewsRouter from './routes/views.routes.js';
+import sessionsRouter from './routes/sessions.routes.js';
+import "./database.js";
 import initializePassport from './config/passport.config.js';
+import ProductController from './controllers/products.controllers.js'; 
+
+
 const app = express();
 const puerto = 8080;
 
 
-
-// middleware
-app.use(cookieParser())
+app.use(cookieParser());
 app.use(passport.initialize());
-initializePassport()
+initializePassport();
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./src/public"));
-app.use("/", viewsRouter)
+app.use("/", viewsRouter);
 
 
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", "./src/views");
 
-
-
-
-app.use('/api/products', productsRouter);
+// Rutas
+app.use('/api/products', productsRouter); 
 app.use('/api/carts', cartsRouter);
-app.use("/api/sessions", sessionsRouter)
-
-
-
-
+app.use("/api/sessions", sessionsRouter);
 
 
 const http = app.listen(puerto, () => {
-    displayRoutes(app)
+    displayRoutes(app);
     console.log(`Servidor activo en el puerto ${puerto}`);
 });
 
-
-
-
+// Configuración de WebSocket
 const io = new Server(http); 
 
-const productManager = new ProductManager();
+// Usar el controlador de productos para el manejo de WebSocket
+
 
 io.on("connection", async (socket) => {
     console.log("Un Cliente se ha conectado");
 
-    // Enviar productos al conectar
-    const productos = await productManager.getProducts();
+    
+    const productos = await ProductController.getProducts();
     socket.emit("productos", productos);
 
     socket.on("eliminarProducto", async (id) => {
-        await productManager.deleteProduct(id);
-        const productosActualizados = await productManager.getProducts();
+        await ProductController.deleteProduct(id);
+        const productosActualizados = await ProductController.getProducts();
         io.sockets.emit("productos", productosActualizados);
     });
 
     socket.on("agregarProducto", async (producto) => {
-        await productManager.addProduct(producto);
-        const productosActualizados = await productManager.getProducts();
+        await ProductController.addProduct(producto);
+        const productosActualizados = await ProductController.getProducts();
         io.sockets.emit("productos", productosActualizados);
     });
 });
-
