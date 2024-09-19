@@ -45,24 +45,25 @@ const http = app.listen(puerto, () => {
 const io = new Server(http); 
 
 // Usar el controlador de productos para el manejo de WebSocket
-
-
 io.on("connection", async (socket) => {
     console.log("Un Cliente se ha conectado");
+    
+   
+    const productos = await ProductController.getProducts();
+    socket.emit("productos", productos.payload); 
 
     
-    const productos = await ProductController.getProducts();
-    socket.emit("productos", productos);
+    socket.on("agregarProducto", async (producto) => {
+        await ProductController.addProduct(producto);
+        const productosActualizados = await ProductController.getProducts();
+        io.sockets.emit("productos", productosActualizados.payload);
+    });
 
     socket.on("eliminarProducto", async (id) => {
         await ProductController.deleteProduct(id);
         const productosActualizados = await ProductController.getProducts();
-        io.sockets.emit("productos", productosActualizados);
-    });
-
-    socket.on("agregarProducto", async (producto) => {
-        await ProductController.addProduct(producto);
-        const productosActualizados = await ProductController.getProducts();
-        io.sockets.emit("productos", productosActualizados);
+        io.sockets.emit("productos", productosActualizados.payload);
     });
 });
+
+

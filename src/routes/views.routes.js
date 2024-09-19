@@ -5,12 +5,22 @@ import productController from "../controllers/products.controllers.js";
 
 const router = express.Router();
 
-
 router.get("/products", passport.authenticate("jwt", { session: false }), soloUser, async (req, res) => {
     try {
-        const { page = 1, limit = 2 } = req.query;
+        const productos = await productController.getProducts(req); 
+
         
-        const productos = await productController.getProducts(req, res);
+        res.render('products', {
+            products: productos.payload.docs,  
+            totalPages: productos.totalPages,
+            currentPage: productos.page,
+            hasPrevPage: productos.hasPrevPage,
+            hasNextPage: productos.hasNextPage,
+            prevLink: productos.prevLink,
+            nextLink: productos.nextLink
+        });
+        
+        console.log('Productos obtenidos:', productos.payload);
     } catch (error) {
         console.error("Error al obtener productos", error);
         res.status(500).json({
@@ -20,12 +30,12 @@ router.get("/products", passport.authenticate("jwt", { session: false }), soloUs
     }
 });
 
-// Ruta para obtener carrito por ID
+
 router.get("/carts/:cid", async (req, res) => {
     const cartId = req.params.cid;
 
     try {
-        // Usar el controlador del carrito para obtenerlo por ID
+        
         const carrito = await cartController.getCarritoById(cartId);
 
         if (!carrito) {
@@ -35,7 +45,7 @@ router.get("/carts/:cid", async (req, res) => {
 
         const productosEnCarrito = carrito.products.map(item => ({
             product: item.product.toObject(),
-            // Lo convertimos a objeto para pasar las restricciones de Exp Handlebars. 
+            
             quantity: item.quantity
         }));
 
@@ -46,17 +56,17 @@ router.get("/carts/:cid", async (req, res) => {
     }
 });
 
-// Ruta para renderizar login
+
 router.get("/login", (req, res) => {
     res.render("login");
 });
 
-// Ruta para renderizar registro
+
 router.get("/register", (req, res) => {
     res.render("register");
 });
 
-// Ruta para productos en tiempo real (solo admins)
+
 router.get("/realtimeproducts", passport.authenticate("jwt", { session: false }), soloAdmin, (req, res) => {
     try {
         res.render("realtimeproducts");

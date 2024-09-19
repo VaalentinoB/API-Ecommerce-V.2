@@ -6,7 +6,7 @@ const cookieExtractor = (req) => {
     let token = null;
     if (req && req.cookies) {
         token = req.cookies['passticketCookieToken'];
-        console.log("Token JWT extraído de la cookie:", token);  // Verifica que la cookie contenga el JWT
+       
     }
     return token;
 };

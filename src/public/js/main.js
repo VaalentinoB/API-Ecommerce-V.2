@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Escucha cuando se envíen productos desde el servidor
     socket.on("productos", (data) => {
+        console.log("Productos recibidos del servidor:", data);
         renderProductos(data);
     });
 
@@ -39,18 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    
-    const eliminarProducto = (id) => {
-        socket.emit("eliminarProducto", id);
-    };
-
-    
-    const btnEnviar = document.getElementById("btnEnviar");
-    btnEnviar.addEventListener("click", () => {
-        agregarProducto();
-    });
-
    
+
     const agregarProducto = () => {
         const title = document.getElementById("title").value;
         const description = document.getElementById("description").value;
@@ -61,13 +52,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const category = document.getElementById("category").value;
         const status = document.getElementById("status").value === "true";
 
-       
         if (!title || !description || isNaN(price) || isNaN(stock) || !code || !category) {
             alert("Todos los campos deben estar completos y en formato correcto.");
             return;
         }
 
-        
         const producto = {
             title,
             description,
@@ -79,10 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
             status,
         };
 
-        
         socket.emit("agregarProducto", producto);
 
-        
         document.getElementById("title").value = '';
         document.getElementById("description").value = '';
         document.getElementById("price").value = '';
@@ -92,4 +79,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById("category").value = '';
         document.getElementById("status").value = 'true';
     };
+});
+
+const eliminarProducto = (id) => {
+    socket.emit("eliminarProducto", id);
+};
+
+const btnEnviar = document.getElementById("btnEnviar");
+btnEnviar.addEventListener("click", () => {
+    agregarProducto();
 });

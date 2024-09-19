@@ -1,11 +1,16 @@
 import productService from "../service/products.service.js";
 
 class ProductController {
-    async getProducts(req, res) {
+  
+    async getProducts(req) {
         try {
-            const { limit = 10, page = 1, sort, query } = req.query;
+            const { limit = 10, page = 1, sort, query } = req?.query || {};
+            
+            // Llama al servicio para obtener los productos
             const productos = await productService.getProducts({ limit, page, sort, query });
-            res.json({
+            
+            // Retorna los datos de productos con la información de paginación
+            return {
                 status: 'success',
                 payload: productos,
                 totalPages: productos.totalPages,
@@ -16,12 +21,13 @@ class ProductController {
                 hasNextPage: productos.hasNextPage,
                 prevLink: productos.hasPrevPage ? `/api/products?limit=${limit}&page=${productos.prevPage}&sort=${sort}&query=${query}` : null,
                 nextLink: productos.hasNextPage ? `/api/products?limit=${limit}&page=${productos.nextPage}&sort=${sort}&query=${query}` : null,
-            });
+            };
         } catch (error) {
             console.error("Error al obtener productos", error);
-            res.status(500).json({ status: 'error', error: "Error interno del servidor" });
+            throw new Error("Error interno del servidor");
         }
     }
+    
 
     async getProductById(req, res) {
         const id = req.params.pid;
