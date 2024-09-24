@@ -1,13 +1,12 @@
 import mongoose from "mongoose";
 
-
 const ticketSchema = new mongoose.Schema({
-    code:{
+    code: {
         type: String,
         required: true,
         unique: true,
         default: function() {
-            return `TICKET- ${Math.random().toString()}`
+            return `TICKET-${Math.random().toString(36).substr(2, 9)}`;
         }
     },
     purchase_datetime: {
@@ -15,9 +14,15 @@ const ticketSchema = new mongoose.Schema({
         required: true,
         default: Date.now
     },
-    amount {
+    amount: { // Aquí faltaban los dos puntos después de `amount`
         type: Number,
         required: true
     },
-    purchaser
-})
+    purchaser: {
+        type: String,
+        required: true // Aquí estaba mal escrito como `requiered`
+    }
+});
+
+const TicketModel = mongoose.model("tickets", ticketSchema);
+export default TicketModel;
