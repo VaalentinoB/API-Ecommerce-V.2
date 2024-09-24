@@ -14,13 +14,13 @@ const ticketSchema = new mongoose.Schema({
         required: true,
         default: Date.now
     },
-    amount: { // Aquí faltaban los dos puntos después de `amount`
+    amount: { 
         type: Number,
         required: true
     },
     purchaser: {
         type: String,
-        required: true // Aquí estaba mal escrito como `requiered`
+        required: true
     }
 });
 

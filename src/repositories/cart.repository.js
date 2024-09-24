@@ -4,6 +4,7 @@ import CartDTO from "../dto/cart.dto.js";
 class CartRepository {
     async crearCarrito() {
         const cart = await CartDAO.crearCarrito();
+        console.log("Carrito creado en CartRepository:", cart); 
         return new CartDTO(cart);
     }
 

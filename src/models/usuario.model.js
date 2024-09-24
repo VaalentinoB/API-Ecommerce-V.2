@@ -15,10 +15,9 @@ const usuarioSchema = new mongoose.Schema({
         unique: true,
         index: true
     },
-    cart_id: {
+    cart: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Cart',
-        required: false
+        ref: 'carts',
     },
     password: {
         type: String,

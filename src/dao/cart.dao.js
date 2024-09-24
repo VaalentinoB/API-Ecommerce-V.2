@@ -1,10 +1,12 @@
 import CartModel from "../models/cart.model.js";
-
+import CartDTO from "../dto/cart.dto.js";
 
 class CartDAO {
     async crearCarrito() {
         const nuevoCarrito = new CartModel({ products: [] });
-        return await nuevoCarrito.save();
+        const savedCart = await nuevoCarrito.save();
+        console.log("Carrito guardado en CartDAO:", savedCart); 
+        return savedCart;
     }
 
     async getCarritoById(cartId) {

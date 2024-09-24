@@ -1,9 +1,17 @@
 import userDao from "../dao/user.dao.js";
-
+import UsuarioModel from "../models/usuario.model.js";
 
 class UserRepository {
     async createUser(userData) {
-        return await userDao.save(userData)
+        try {
+            const newUser = new UsuarioModel(userData);
+            const savedUser = await newUser.save();
+            console.log("Usuario guardado en UserRepository:", savedUser);
+            return savedUser;
+        } catch (error) {
+            console.error("Error al guardar usuario:", error);
+            throw error;
+        }
     }
 
     async getUserbyId(id) {
