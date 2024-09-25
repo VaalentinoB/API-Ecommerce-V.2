@@ -1,6 +1,8 @@
 import CartModel from "../models/cart.model.js";
 import ProductModel from "../models/products.model.js";
 import CartService from "../service/cart.service.js";
+import {calcularTotal} from "../util/util.js";
+
 
 
 const crearCarrito = async (req, res) => {
@@ -93,10 +95,19 @@ const FinalizarCompra = async (req, res) => {
 
             const ticket = new TicketModel({
                 purchase_datatime : new Date(),
-                amount: carrito.total,
-                code: carrito.code
+                amount: calcularTotal(carrito.products),
+               purchaser: usuarioDelCarrito.email
             })
+            await ticket.save()
 
+            carrito.products = cart.products.filter(item => productosNoDisponibles.some(productId => productId.equals(item.product)));
+        await carrito.save();
+        res.json({ message: 'Carrito finalizado exitosamente', ticket: {
+            id: ticket._id,
+            amount: ticket.amount,
+            purchase_datetime: ticket.purchase_datatime,
+            purchaser: ticket.purchaser
+        } });
         }
     } catch (error) {
         res.status(500).json({ error: 'Error al eliminar todos los productos del carrito' });
