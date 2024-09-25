@@ -1,3 +1,5 @@
+import CartModel from "../models/cart.model.js";
+import ProductModel from "../models/products.model.js";
 import CartService from "../service/cart.service.js";
 
 
@@ -67,11 +69,46 @@ const viewCarrito = async (req, res) => {
     }
 };
 
+const FinalizarCompra = async (req, res) => {
+    const carritoId = req.params.cid;
+    try {
+        const carrito = await CartModel.findById(carritoId);
+        const arrayProductos = carrito.products;
+
+        const productosNoDisponibles = [];
+
+        for (const item of arrayProductos) {
+            const productId = item.product;
+            const product = await ProductModel.findById(productId);
+            if (product.stock > item.quantity) {
+                product.stock -= item.quantity;
+                await product.save();
+            } else {
+                productosNoDisponibles.push(productId);
+
+            }
+
+
+            const usuarioDelCarrito = await ProductModel.findOne({cart:carritoId})
+
+            const ticket = new TicketModel({
+                purchase_datatime : new Date(),
+                amount: carrito.total,
+                code: carrito.code
+            })
+
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Error al eliminar todos los productos del carrito' });
+    }
+};
+
 export default {
     crearCarrito,
     getCarritoById,
     agregarProductoAlCarrito,
     eliminarProductoDelCarrito,
     eliminarTodosLosProductos,
-    viewCarrito
+    viewCarrito,
+    FinalizarCompra
 };
