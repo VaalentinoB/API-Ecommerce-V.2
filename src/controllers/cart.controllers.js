@@ -102,7 +102,7 @@ const FinalizarCompra = async (req, res) => {
 
             carrito.products = cart.products.filter(item => productosNoDisponibles.some(productId => productId.equals(item.product)));
         await carrito.save();
-        res.json({ message: 'Carrito finalizado exitosamente', ticket: {
+        res.json({ message: 'Tu compra fue finalizada exitosamente', ticket: {
             id: ticket._id,
             amount: ticket.amount,
             purchase_datetime: ticket.purchase_datatime,
