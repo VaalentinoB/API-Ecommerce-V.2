@@ -11,10 +11,13 @@ import sessionsRouter from './routes/sessions.routes.js';
 import "./database.js";
 import initializePassport from './config/passport.config.js';
 import ProductController from './controllers/products.controllers.js'; 
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 
 const app = express();
-const puerto = 8080;
+const puerto = process.env.PORT;
 
 
 app.use(cookieParser());

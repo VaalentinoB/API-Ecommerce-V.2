@@ -2,8 +2,8 @@
 
 import mongoose from "mongoose";
 
-
-mongoose.connect("mongodb+srv://valentinoburioni:vburioni1234@apivb.vym0xct.mongodb.net/eccomerce",)
+const mongoURL = process.env.MONGO_URL;
+mongoose.connect(mongoURL,)
     .then(() => {
         console.log('Conectado a la base de datos');
     }).catch((error) => {
