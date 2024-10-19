@@ -5,6 +5,10 @@ import productController from "../controllers/products.controllers.js";
 
 const router = express.Router();
 
+
+
+
+
 router.get("/products", passport.authenticate("jwt", { session: false }), soloUser, async (req, res) => {
     try {
         const productos = await productController.getProducts(req); 
